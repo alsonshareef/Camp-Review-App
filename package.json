@@ -1,0 +1,23 @@
+{
+  "name": "camp-site",
+  "version": "1.0.0",
+  "description": "Camp Site App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alsonshareef/Camp-Site-App.git"
+  },
+  "author": "Alson Shareef",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alsonshareef/Camp-Site-App/issues"
+  },
+  "homepage": "https://github.com/alsonshareef/Camp-Site-App#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.3"
+  }
+}
