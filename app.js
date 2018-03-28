@@ -1,21 +1,21 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
+var mongoose = require("mongoose");
 
+mongoose.connect("mongodb://localhost/yelp_camp");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 
-var campgrounds = [
-    {name: "Lane Poole Reserve", image:"https://pixabay.com/get/ea34b00e21f6003ed1584d05fb1d4e97e07ee3d21cac104497f1c77aa4edb0ba_340.jpg"},
-    {name: "Yalgorup National Park", image:"https://farm8.staticflickr.com/7296/28070862692_32f82c02ba.jpg"},
-    {name: "Wellington National Park", image:"https://pixabay.com/get/ea35b8062cf1063ed1584d05fb1d4e97e07ee3d21cac104497f1c77da7e9b4bb_340.jpg"},
-    {name: "Lane Poole Reserve", image:"https://pixabay.com/get/ea34b00e21f6003ed1584d05fb1d4e97e07ee3d21cac104497f1c77aa4edb0ba_340.jpg"},
-    {name: "Yalgorup National Park", image:"https://farm8.staticflickr.com/7296/28070862692_32f82c02ba.jpg"},
-    {name: "Wellington National Park", image:"https://pixabay.com/get/ea35b8062cf1063ed1584d05fb1d4e97e07ee3d21cac104497f1c77da7e9b4bb_340.jpg"},
-    {name: "Lane Poole Reserve", image:"https://pixabay.com/get/ea34b00e21f6003ed1584d05fb1d4e97e07ee3d21cac104497f1c77aa4edb0ba_340.jpg"},
-    {name: "Yalgorup National Park", image:"https://farm8.staticflickr.com/7296/28070862692_32f82c02ba.jpg"},
-    {name: "Wellington National Park", image:"https://pixabay.com/get/ea35b8062cf1063ed1584d05fb1d4e97e07ee3d21cac104497f1c77da7e9b4bb_340.jpg"}
-]
+
+// Initial SCHEMA Setup
+var campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String
+});
+
+var Campground = mongoose.model("Campground", campgroundSchema);
+
 
 // ROUTES ============================================
 // GET ===============================================
@@ -24,7 +24,13 @@ app.get("/", function(req, res){
 });
 
 app.get("/campgrounds", function(req, res){
-    res.render("campgrounds", {campgrounds:campgrounds});
+    Campground.find({}, function(err, allCampgrounds){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("campgrounds", {campgrounds:allCampgrounds});
+        }
+    });
 });
 
 app.get("/campgrounds/new", function(req, res){
@@ -36,9 +42,13 @@ app.post("/campgrounds", function(req, res){
     var name = req.body.name;
     var image = req.body.image;
     var newCampground = {name: name, image: image}
-    campgrounds.push(newCampground);
-
-    res.redirect("/campgrounds");
+    Campground.create(newCampground, function(err, newlyCreated){
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/campgrounds");
+        }
+    });
 });
 
 // ====================================================
