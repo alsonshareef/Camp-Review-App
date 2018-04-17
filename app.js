@@ -2,8 +2,10 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const Campground = require("./models/campground");
+const Campground = require("./models/campground"); // Campground Schema
+const seedDB = require("./seeds"); 
 
+seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
