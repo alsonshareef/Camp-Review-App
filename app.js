@@ -5,10 +5,10 @@ const mongoose = require("mongoose");
 const Campground = require("./models/campground"); // Campground Schema
 const seedDB = require("./seeds"); 
 
-seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
+seedDB();
 
 // ROUTES ============================================
 app.get("/", function(req, res){
@@ -48,7 +48,7 @@ app.post("/campgrounds", function(req, res){
 
 // SHOW ROUTE (shows more info about a selected campground)
 app.get("/campgrounds/:id", function(req, res){
-    Campground.findById(req.params.id, function(err, foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
         if (err) {
             console.log(err);
         } else {
