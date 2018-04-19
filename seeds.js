@@ -6,17 +6,17 @@ let data = [
     {
         name: "Cloud's Rest",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe3AoLkBMaWT7bScakASPIWZC9tNqv-L0WtCXC08JAlGcqEHsWjQ",
-        description: "aosidhaisdhasdoihasdo"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
         name: "Desert Mesa",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg5msJ8JTcvOiVB6RbN4sNh80Ae0BR_yFlubOlL49apI_-MdK4_g",
-        description: "aosidhaisdhasdoihasdo"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     },
     {
         name: "Canyon Floor",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaAuEyQsUJNuyxT0q96j9vEdgopmG5Hd10imUUfTmzzzy5z9uM",
-        description: "aosidhaisdhasdoihasdo"
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     }
 ]
 
