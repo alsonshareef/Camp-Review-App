@@ -21,14 +21,14 @@ app.get("/campgrounds", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("index", {campgrounds:allCampgrounds});
+            res.render("campgrounds/index", {campgrounds:allCampgrounds});
         }
     });
 });
 
 // NEW ROUTE (shows form to input a new campground)
 app.get("/campgrounds/new", function(req, res){
-    res.render("new.ejs");
+    res.render("campgrounds/new.ejs");
 });
 
 // CREATE ROUTE (adds new campground to db, and redirects to index route)
@@ -52,9 +52,15 @@ app.get("/campgrounds/:id", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("show", {campground: foundCampground});
+            res.render("campgrounds/show", {campground: foundCampground});
         }
     });
+});
+
+// COMMENT ROUTES =====================================
+
+app.get("/campgrounds/:id/comments/new", function(req, res){
+    res.render("comments/new.ejs");
 });
 
 // ====================================================
