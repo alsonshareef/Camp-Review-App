@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground"); // Campground Schema
+const Comment = require("./models/comment"); // Comment Schema
 const seedDB = require("./seeds"); 
 
 mongoose.connect("mongodb://localhost/yelp_camp");
@@ -58,11 +59,35 @@ app.get("/campgrounds/:id", function(req, res){
 });
 
 // COMMENT ROUTES =====================================
-
 app.get("/campgrounds/:id/comments/new", function(req, res){
-    res.render("comments/new.ejs");
+    // Find campground by ID
+    Campground.findById(req.params.id, function(err, campground){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("comments/new.ejs", {campground: campground});
+        }
+    });
 });
 
+app.post("/campgrounds/:id/comments", function(req, res){
+    Campground.findById(req.params.id, function(err, campground){
+        if (err) {
+            console.log(err);
+            redirect("/campgrounds");
+        } else {
+            Comment.create(req.body.comment, function(err, comment){
+                if (err) {
+                    console.log(err);
+                } else {
+                    campground.comments.push(comment);
+                    campground.save();
+                    res.redirect("/campgrounds/" + campground._id);
+                }
+            });
+        }
+    });
+});
 // ====================================================
 app.listen(3000, function(){
     console.log("Camp server has started on port 3000!");
