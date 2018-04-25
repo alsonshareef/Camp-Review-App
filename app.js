@@ -107,7 +107,8 @@ app.post("/campgrounds/:id/comments", function(req, res){
     });
 });
 
-// Authentication Routes
+// AUTHENTICATION ROUTES
+// Register
 app.get("/register", function(req, res){
     res.render("register.ejs");
 });
@@ -124,9 +125,24 @@ app.post("/register", function(req, res){
         });
     });
 });
+
+// Login
+app.get("/login", function(req, res){
+    res.render("login.ejs");
+});
+
+app.post("/login", passport.authenticate("local", 
+    {
+        successRedirect: "/campgrounds",
+        failureRedirect: "/login"
+    }), function(req, res){
+});
+
+// Logout
+
+
 // ====================================================
 app.listen(3000, function(){
     console.log("Camp server has started on port 3000!");
-
 });
 
