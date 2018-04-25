@@ -11,13 +11,14 @@ const Comment = require("./models/comment"); // Comment Schema
 const User = require("./models/user");
 const seedDB = require("./seeds"); 
 
-// CONFIG
+// CONFIG ============================================
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public")); // CSS
 seedDB();
 
+// PASSPORT CONFIG
 app.use(require("express-session")({
     secret: "This is the authentication for review app",
     resave: false,
@@ -28,6 +29,11 @@ app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use(function(req, res, next){       // Log-in middleware so every route will display logged in user
+    res.locals.currentUser = req.user;
+    next();
+});
 
 // ROUTES ============================================
 app.get("/", function(req, res){
