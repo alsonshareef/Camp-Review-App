@@ -18,6 +18,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 seedDB();
 
+app.use(require("express-session")({
+    secret: "This is the authentication for review app",
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // ROUTES ============================================
 app.get("/", function(req, res){
     res.render("landing");
@@ -96,6 +107,23 @@ app.post("/campgrounds/:id/comments", function(req, res){
     });
 });
 
+// Authentication Routes
+app.get("/register", function(req, res){
+    res.render("register.ejs");
+});
+
+app.post("/register", function(req, res){
+    const newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err, user){ // Potential Bug 'register'
+        if (err) {
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function(){
+            res.redirect("/campgrounds");
+        });
+    });
+});
 // ====================================================
 app.listen(3000, function(){
     console.log("Camp server has started on port 3000!");
