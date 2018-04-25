@@ -2,10 +2,16 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const passport = require("passport");
+const localStrategy = require("passport-local");
+
+// MODELS
 const Campground = require("./models/campground"); // Campground Schema
 const Comment = require("./models/comment"); // Comment Schema
+const User = require("./models/user");
 const seedDB = require("./seeds"); 
 
+// CONFIG
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -89,6 +95,7 @@ app.post("/campgrounds/:id/comments", function(req, res){
         }
     });
 });
+
 // ====================================================
 app.listen(3000, function(){
     console.log("Camp server has started on port 3000!");
