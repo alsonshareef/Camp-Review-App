@@ -15,7 +15,7 @@ const seedDB = require("./seeds");
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/public")); // CSS
 seedDB();
 
 app.use(require("express-session")({
@@ -77,7 +77,7 @@ app.get("/campgrounds/:id", function(req, res){
 });
 
 // COMMENT ROUTES =====================================
-app.get("/campgrounds/:id/comments/new", function(req, res){
+app.get("/campgrounds/:id/comments/new", isLoggedIn, function(req, res){
     // Find campground by ID
     Campground.findById(req.params.id, function(err, campground){
         if (err) {
@@ -88,7 +88,7 @@ app.get("/campgrounds/:id/comments/new", function(req, res){
     });
 });
 
-app.post("/campgrounds/:id/comments", function(req, res){
+app.post("/campgrounds/:id/comments", isLoggedIn, function(req, res){
     Campground.findById(req.params.id, function(err, campground){
         if (err) {
             console.log(err);
@@ -139,7 +139,17 @@ app.post("/login", passport.authenticate("local",
 });
 
 // Logout
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/campgrounds");
+});
 
+function isLoggedIn(req, res, next){  // Logged in middleware
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+};
 
 // ====================================================
 app.listen(3000, function(){
