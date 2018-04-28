@@ -16,7 +16,7 @@ mongoose.connect("mongodb://localhost/yelp_camp");
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public")); // CSS
-seedDB();
+// seedDB(); // Seed the database
 
 // ROUTES CONFIG
 const commentRoutes = require("./routes/comments");
