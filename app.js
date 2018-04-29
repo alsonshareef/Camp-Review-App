@@ -48,4 +48,3 @@ app.use("/", indexRoutes);
 app.listen(3000, function(){
     console.log("Camp server has started on port 3000!");
 });
-
