@@ -55,4 +55,29 @@ router.get("/:id", function(req, res){
     });
 });
 
+// EDIT ROUTE (Shows form to edit specific campground)
+router.get("/:id/edit", function(req, res){
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if (err) {
+            res.redirect("/campgrounds");
+        } else {
+            res.render("campgrounds/edit", {campground: foundCampground});
+        }
+    })
+});
+
+// UPDATE ROUTE (Will update specific campground with data from EDIT and redirect back to SHOW)
+router.put("/:id", function(req, res){
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+        if (err) {
+            res.redirect("/campgrounds");
+        } else {
+            res.redirect("/campgrounds/" + req.params.id);
+        }
+    });
+});
+
+// DESTROY ROUTE (Delete a campground and redirect back to show)
+
+
 module.exports = router;
