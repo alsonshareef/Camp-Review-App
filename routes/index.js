@@ -17,10 +17,11 @@ router.post("/register", function(req, res){
     const newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){ // Potential Bug 'register'
         if (err) {
-            console.log(err);
+            req.flash("error", err.message);
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function(){
+            req.flash("success", "Welcome " + user.username + "!");
             res.redirect("/campgrounds");
         });
     });
@@ -41,6 +42,7 @@ router.post("/login", passport.authenticate("local",
 // Logout
 router.get("/logout", function(req, res){
     req.logout();
+    req.flash("success", "Logged you out!");
     res.redirect("/campgrounds");
 });
 
